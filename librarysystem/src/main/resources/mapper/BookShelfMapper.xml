@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.laji.mapper.BookShelfMapper">
+	<resultMap id="BaseResultMap" type="com.laji.domain.BookShelf">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, name
+	</sql>
+	<delete id="deleteBookShelf" parameterType="java.lang.Integer">
+		delete from bookshelf
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="addBookShelf" parameterType="com.laji.domain.BookShelf">
+		insert into bookshelf
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				name,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateBookShelf" parameterType="com.laji.domain.BookShelf">
+		update bookshelf
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id, jdbcType=INTEGER}
+	</update>
+	<select id="queryAllBookShelf" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from bookshelf
+	</select>
+	<select id="loadAllBookShelfName" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from bookshelf
+	</select>
+</mapper>

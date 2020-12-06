@@ -1,0 +1,32 @@
+.mybutton{
+	width: 140px;
+	line-height: 21px;
+	text-align: center;
+	font-weight: bold;
+	color: #d3a203;
+	/* text-shadow:1px 1px 1px #333; */
+	border-radius: 5px;
+	margin:5px 0px 2px 0px;
+	position: relative;
+	overflow: hidden;
+}
+.mybutton:active{
+	top:1px;
+	box-shadow: 0 1px 3px #816b1f inset,0 3px 0 #fff;
+	background: -webkit-linear-gradient(top,#ffd859,#dfdfdda3);
+	background: -moz-linear-gradient(top,#ffd859,#dfdfdda3);
+	background: linear-gradient(top,#ffd859,#dfdfdda3);	
+}/* 
+.mybutton:active:after{
+background:-webkit-linear-gradient(top left,#d3a203,#dba907);
+background:-moz-linear-gradient(top left,#d3a203,#dba907);
+background:linear-gradient(top left,#d3a203,#dba907);
+}
+.mybutton:hover:after{
+background:-webkit-linear-gradient(top left,#ffd859,#e3bb38);
+background:-moz-linear-gradient(top left,#ffd859,#e3bb38);
+background:linear-gradient(top left,#ffd859,#e3bb38);
+}
+.mybutton:active:after{
+box-shadow: 0 1px 0 #816b1f inset,-1px 0 0 #816b1f inset;
+} */

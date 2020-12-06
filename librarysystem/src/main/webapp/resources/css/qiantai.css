@@ -1,0 +1,227 @@
+html, body, h1, h2, h3, h4, ul, li {
+	margin: 0;
+	padding: 0;
+}
+h1 img {
+	display: block;
+}
+img {
+	border: 0;
+}
+a {
+	color: #464544;
+}
+a:hover {
+	color: #FFA405;
+}
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+.more {
+	text-align: right;	
+}
+.clear {
+	clear: both;
+}
+.vediodisplay{
+	float: left;
+	width: 33%;
+}
+body {
+	background:url(/newlaji/resources/images/site/body_hei.jpg);
+	background-position:50% 50%;
+	background-size:contain;
+	background-repeat: repeat;
+	text-align: center;
+	font: 11px verdana, arial, sans-serif;
+	padding-bottom: 30px;
+	padding-top: 0px;
+}
+
+#wrapper {
+	text-align: left;
+	margin: auto;
+	width: 778px;
+	position: relative;
+  	background: url(/newlaji/resources/images/site/body_bg.png) repeat-y;
+}
+
+#header {
+  position: absolute;
+  top: 0;
+  left: 243px;
+  width: 757px;
+  height: 185px;
+  background: url(/newlaji/resources/images/site/header.png) no-repeat;
+}
+#left {
+  float: left;
+  width: 243px;
+}
+#logo {
+  width: 244px;
+  height: 132px;
+  background: url(/newlaji/resources/images/site/logo.png) no-repeat;
+  text-align: center;
+  color: #595959;
+}
+#logo h1 {
+  padding-top: 30px;
+  font: 24px "arial narrow", arial, sans-serif;
+}
+#logo p {
+  margin: 8px 25px 4px 25px;
+  border-top: 1px solid #B8B8B8;
+  border-bottom: 1px solid #B8B8B8;
+  padding: 3px;
+  letter-spacing: 0.2em;
+  font-weight: bold;
+}
+
+#nav {
+  background: url(/newlaji/resources/images/site/nav.png) no-repeat;
+  width: 231px;
+}
+#nav ul {
+  margin-left: 9px;
+  padding-left: 1px;
+  padding-bottom: 29px;
+}
+#nav li {
+  padding: 7px 0 0 31px;
+}
+#nav a {
+  color: #fff;
+  text-decoration: none;
+  /* border-left: 1px solid #959595; */
+  padding-left: 10px;
+  display: block;
+  width: 90%;
+  padding: 13px 0px 0px 13px;
+}
+#nav a:hover {
+  text-decoration: underline;
+}
+#nav .important {
+  border: none;
+  background: 188px 10px url(/newlaji/resources/images/site/arr_orange.gif) no-repeat;
+}
+#nav .important a {
+  color: #E9C379;
+}
+
+#news {
+  background: url(/newlaji/resources/images/site/news.png);
+  height: 432px;
+  width: 172px;
+  padding-left: 37px;
+  padding-right: 22px;
+  padding-bottom: 3px;
+  text-align: justify;
+}
+#news h2 {
+  font-size: 12px;
+  color: #BE8B06;
+}
+#news h3, #news p {
+  font-size: 11px;
+  margin: 1em 8px 1em 0;
+}
+#news a {
+  color: #74653D;
+  font-weight: bold;
+  text-decoration: underline;
+}
+#news a:hover {
+  color: #38301A;
+}
+#news .more {
+  font-size: 9px;
+}
+#news .hr-dots {
+  background: center url(/newlaji/resources/images/site/dots.gif) repeat-x;
+  height: 10px;
+}
+
+#support {
+  background: url(/newlaji/resources/images/site/support.jpg) no-repeat;
+  padding: 1px;
+  height: 97px;
+  color: #1A1A18;
+}
+#support p {
+  margin: 0.7em 2.6em;
+}
+#right {
+  background: url(/newlaji/resources/images/site/jiao1.png);
+  background-position:42% 58%;
+  padding-left: 243px;
+  width: 747px;
+  height: 524px;
+  padding-right: 9px;
+  padding-top: 211px;
+}
+#right h2 {
+  font: 18px arial, sans-serif;
+  color: #BE8B06;
+  border-bottom: 1px solid #C4AE7C;
+  padding-bottom: 6px;
+  margin-bottom: 1em;
+}
+#right h3 {
+  font: 14px arial, sans-serif;
+  color: #BE8B06;
+  border-bottom: 1px solid #C4AE7C;
+  padding-bottom: 6px;
+  margin-bottom: 1em;
+  margin-top: 2em;
+}
+#welcome {
+  margin-right: 0px;
+}
+#profile {
+  margin-right: 16px;
+}
+#right .left {
+  margin-right: 18px;
+}
+#right .more {
+  font-weight: bold;
+  font-size: 10px;
+}
+
+#corp, #indu {
+  float: left;
+  width: 49%;
+}
+#corp {
+  margin-right: 1%;
+}
+#corp-img, #indu-img {
+  background: url(/newlaji/resources/images/site/pic_2.jpg) no-repeat;
+  width: 112px;
+  height: 23px;
+  float: left;
+  margin-right: 18px;
+  text-align: center;
+  padding-top: 90px;
+  font-size: 9px;
+  font-weight: bold;
+}
+#indu-img {
+  background: url(/newlaji/resources/images/site/pic_3.jpg) no-repeat;
+}
+#spacer {
+  height: 2em;
+}
+
+#copyright {
+  text-align: center;
+  padding: 22px 0px 30px 00px;
+  font-size: 9px;
+  color: #715F36;
+  font-weight: bold;
+}

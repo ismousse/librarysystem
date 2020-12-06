@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.laji.mapper.BookMapper">
+	<resultMap id="BaseResultMap" type="com.laji.domain.Book">
+		<id column="bookid" jdbcType="INTEGER" property="bookid" />
+		<result column="barcode" jdbcType="VARCHAR" property="barcode"/>
+		<result column="ISBN" jdbcType="VARCHAR" property="ISBN" />
+		<result column="bookname" jdbcType="VARCHAR" property="bookname" />
+		<result column="typeid" jdbcType="INTEGER" property="typeid"/>
+		<result column="shelfid" jdbcType="INTEGER" property="shelfid"/>
+		<result column="author" jdbcType="VARCHAR" property="author" />
+		<result column="bookcount" jdbcType="INTEGER" property="bookcount" />
+		<result column="price" jdbcType="DOUBLE" property="price" />
+		<result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+		<result column="operator" jdbcType="VARCHAR" property="operator" />
+		<result column="del" jdbcType="INTEGER" property="del" />
+		<association property="bookType" javaType="com.laji.domain.BookType">
+	    	<id column="tid" property="id"/>
+	    	<result column="typename" property="typename"/>
+	    	<result column="days" property="days"/>
+	    </association>
+	    <association property="bookShelf" javaType="com.laji.domain.BookShelf">
+	    	<id column="sid" property="id"/>
+	    	<result column="name" property="name"/>
+	    </association>
+	</resultMap>
+	<update id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		update bookinfo set del = 1 where bookid = #{bookid,jdbcType=INTEGER}
+	</update>
+	<insert id="insertSelective" parameterType="com.laji.domain.Book">
+		insert into bookinfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="bookid != null">
+				bookid,
+			</if>
+			<if test="barcode != null">
+				barcode,
+			</if>
+			<if test="ISBN != null">
+				ISBN,
+			</if>
+			<if test="bookname != null">
+				bookname,
+			</if>
+			<if test="typeid != null">
+				typeid,
+			</if>
+			<if test="shelfid != null">
+				shelfid,
+			</if>
+			<if test="author != null">
+				author,
+			</if>
+			<if test="bookcount != null">
+				bookcount,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="operator != null">
+				operator,
+			</if>
+			<if test="del != null">
+				del,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="bookid != null">
+				#{bookid,jdbcType=INTEGER},
+			</if>
+			<if test="barcode != null">
+				#{barcode,jdbcType=VARCHAR},
+			</if>
+			<if test="ISBN != null">
+				#{ISBN,jdbcType=VARCHAR},
+			</if>
+			<if test="bookname != null">
+				#{bookname,jdbcType=VARCHAR},
+			</if>
+			<if test="typeid != null">
+				#{typeid,jdbcType=INTEGER},
+			</if>
+			<if test="shelfid != null">
+				#{shelfid,jdbcType=INTEGER},
+			</if>
+			<if test="author != null">
+				#{author,jdbcType=VARCHAR},
+			</if>
+			<if test="bookcount != null">
+				#{bookcount,jdbcType=DOUBLE},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=INTEGER},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="operator != null">
+				#{operator,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.laji.domain.Book">
+		update bookinfo
+		<set>
+			<if test="barcode != null">
+				barcode = #{barcode,jdbcType=VARCHAR},
+			</if>
+			<if test="ISBN != null">
+				ISBN = #{ISBN,jdbcType=VARCHAR},
+			</if>
+			<if test="bookname != null">
+				bookname = #{bookname,jdbcType=VARCHAR},
+			</if>
+			<if test="typeid != null">
+				typeid = #{typeid,jdbcType=INTEGER},
+			</if>
+			<if test="shelfid != null">
+				shelfid = #{shelfid,jdbcType=INTEGER},
+			</if>
+			<if test="author != null">
+				author = #{author,jdbcType=VARCHAR},
+			</if>
+			<if test="bookcount != null">
+				bookcount = #{bookcount,jdbcType=DOUBLE},
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=INTEGER},
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="operator != null">
+				operator = #{operator,jdbcType=VARCHAR},
+			</if>
+			<if test="del != null">
+				del = #{del,jdbcType=INTEGER},
+			</if>
+		</set>
+		where bookid = #{bookid,jdbcType=INTEGER}
+	</update>
+	<select id="queryAllBook" resultMap="BaseResultMap">
+		select
+		b1.bookid bookid, b1.barcode barcode, b1.ISBN ISBN, b1.bookname bookname,
+		b1.typeid typeid, b1.shelfid shelfid, b1.author author, b1.bookcount bookcount,
+		b1.price price, b1.createtime createtime, b1.operator, b2.id tid,
+		b2.typename typename, b2.days days, b3.id sid, b3.name name
+		from
+		bookinfo b1 left join booktype b2 on b1.typeid = b2.id
+		left join bookshelf b3 on b1.shelfid = b3.id
+		<where>
+			b1.del = 0
+			<if test="barcode!=null and barcode!=''">
+				and barcode = #{barcode}
+			</if>
+			<if test="bookname!=null and bookname!=''">
+				and bookname like concat("%",#{bookname},"%")
+			</if>
+			<if test="author!=null and author!=''">
+				and author like concat("%",#{author},"%")
+			</if>
+			<if test="ISBN!=null and ISBN!=''">
+				and ISBN like concat("%",#{ISBN},"%")
+			</if>
+			<!-- <if test="typename!=null and typename!=''">
+				and typename like concat("%",#{typename},"%")
+			</if>
+			<if test="name!=null and name!=''">
+				and name like concat("%",#{name},"%")
+			</if> -->
+			<!-- 读者查>0的就好了 管理员全部都要 -->
+			<if test="bookcount!=null">
+				and bookcount > #{bookcount}
+			</if>
+		</where>
+	</select>
+	<update id="updateAddBookById" parameterType="java.lang.Integer">
+		update bookinfo set bookcount = bookcount + 1 where bookid = #{bookid,jdbcType=INTEGER}
+	</update>
+	<update id="updateDelBookById" parameterType="java.lang.Integer">
+		update bookinfo set bookcount = bookcount - 1 where bookid = #{bookid,jdbcType=INTEGER}
+	</update>
+</mapper>

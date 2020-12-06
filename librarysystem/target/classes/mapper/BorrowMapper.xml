@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.laji.mapper.BorrowMapper">
+	<resultMap id="BaseResultMap" type="com.laji.domain.Borrow">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="readerId" jdbcType="VARCHAR" property="readerId" />
+		<result column="bookid" jdbcType="INTEGER" property="bookid" />
+		<result column="barcode" jdbcType="VARCHAR" property="barcode" />
+		<result column="borrowTime" jdbcType="TIMESTAMP" property="borrowTime" />
+		<result column="backTime" jdbcType="TIMESTAMP" property="backTime" />
+		<result column="realbackTime" jdbcType="TIMESTAMP" property="realbackTime" />
+		<result column="giveoperator" jdbcType="VARCHAR" property="giveoperator" />
+		<result column="backoperator" jdbcType="VARCHAR" property="backoperator" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="ifback" jdbcType="INTEGER" property="ifback" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, readerId, bookid, barcode, borrowTime, backTime, realbackTime, giveoperator, backoperator, remark, ifback
+	</sql>
+	<select id="queryAllBorrow" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from borrow
+		<where>
+			<if test="readerId!=null and readerId !=''">
+				and readerId = #{readerId}
+			</if>
+			<if test="barcode!=null and barcode !=''">
+				and barcode = #{barcode}
+			</if>
+			<if test="startTime!=null">
+	    		and borrowTime >=#{startTime}
+	    	</if>
+	    	<if test="endTime!=null">
+	    		and borrowTime <![CDATA[<=]]> #{endTime}
+	    	</if>
+		</where>
+	</select>
+	<insert id="insertSelective" parameterType="com.laji.domain.Borrow">
+		insert into borrow
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="readerId != null">
+				readerId,
+			</if>
+			<if test="bookid != null">
+				bookid,
+			</if>
+			<if test="barcode != null">
+				barcode,
+			</if>
+			<if test="borrowTime != null">
+				borrowTime,
+			</if>
+			<if test="backTime != null">
+				backTime,
+			</if>
+			<if test="realbackTime != null">
+				realbackTime,
+			</if>
+			<if test="giveoperator != null">
+				giveoperator,
+			</if>
+			<if test="backoperator != null">
+				backoperator,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="ifback != null">
+				ifback,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="readerId != null">
+				#{readerId,jdbcType=VARCHAR},
+			</if>
+			<if test="bookid != null">
+				#{bookid,jdbcType=INTEGER},
+			</if>
+			<if test="barcode != null">
+				#{barcode,jdbcType=VARCHAR},
+			</if>
+			<if test="borrowTime != null">
+				#{borrowTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="backTime != null">
+				#{backTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="realbackTime != null">
+				#{realbackTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="giveoperator != null">
+				#{giveoperator,jdbcType=VARCHAR},
+			</if>
+			<if test="backoperator != null">
+				#{backoperator,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="ifback != null">
+				#{ifback,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.laji.domain.Borrow">
+		update borrow
+		<set>
+			<if test="readerId != null">
+				readerId = #{readerId,jdbcType=VARCHAR},
+			</if>
+			<if test="bookid != null">
+				bookid = #{bookid,jdbcType=INTEGER},
+			</if>
+			<if test="barcode != null">
+				barcode = #{barcode,jdbcType=VARCHAR},
+			</if>
+			<if test="borrowTime != null">
+				borrowTime = #{borrowTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="backTime != null">
+				backTime = #{backTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="realbackTime != null">
+				realbackTime = #{realbackTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="giveoperator != null">
+				giveoperator = #{giveoperator,jdbcType=VARCHAR},
+			</if>
+			<if test="backoperator != null">
+				backoperator = #{backoperator,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="ifback != null">
+				ifback = #{ifback,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- <update id="updateByPrimaryKeySelective" parameterType="java.lang.Integer">
+		update borrow set ifback = 1 where id = #{id,jdbcType=INTEGER}
+	</update> -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from borrow
+		where id = #{id}
+	</delete>
+	<select id="queryBorrowCount" parameterType="String" resultType="java.lang.Integer">
+		select count(1) from borrow where readerId = #{barcode} and ifback = 0;
+	</select>
+	<!-- select count(1) total,readerId from borrow group by readerId order by total desc; -->
+	<select id="queryBestReader" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />,count(1) total
+		from borrow group by readerId order by total desc limit 5
+	</select>
+	<!-- select count(1) total,SUBSTR(barcode,1,6) barcode from borrow group by barcode order by total desc limit 6; -->
+	<select id="queryBestBook" resultMap="BaseResultMap">
+		select
+		id, readerId, bookid, SUBSTR(barcode,1,6) barcode, borrowTime, backTime, realbackTime, giveoperator, backoperator, remark, ifback, count(1) total
+		from borrow group by barcode order by total desc limit 6
+	</select>
+	<!-- 根据读者条形码号查询未归还的书 -->
+	<select id="queryAllBorrowByRid" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from borrow
+		<where>
+			ifback = 0 and readerId = #{readerId}
+			<if test="startTime!=null">
+	    		and borrowTime >=#{startTime}
+	    	</if>
+	    	<if test="endTime!=null">
+	    		and borrowTime <![CDATA[<=]]> #{endTime}
+	    	</if>
+		</where>
+	</select>
+</mapper>

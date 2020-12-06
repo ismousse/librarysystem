@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.laji.mapper.MenuMapper">
+	<resultMap id="BaseResultMap" type="com.laji.domain.Menu">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="pid" jdbcType="INTEGER" property="pid" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="href" jdbcType="VARCHAR" property="href" />
+		<result column="spread" jdbcType="INTEGER" property="spread" />
+		<result column="icon" jdbcType="VARCHAR" property="icon" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, pid, title, href, spread, icon
+	</sql>
+	<!-- 根据管理员id查询菜单 -->
+	<select id="queryMenuByAdminId" resultMap="BaseResultMap">
+		select distinct t1.* 
+		from
+		menu t1 inner join admin_menu t2 
+		on 
+		t1.id = t2.id
+		where 
+		t2.adminId = #{adminId}
+	</select>
+	<!-- 根据adminId删除admin_menu表中的数据 -->
+	<delete id="deleteMenuByAdminId" parameterType="java.lang.Integer">
+		delete from `admin_menu`
+		where adminId = #{adminId}
+	</delete>
+	<!-- 查询所有菜单 -->
+	<select id="queryAllMenu" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from menu
+	</select>
+</mapper>

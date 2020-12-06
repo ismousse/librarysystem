@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.laji.mapper.ReaderMapper">
+	<resultMap id="BaseResultMap" type="com.laji.domain.Reader">
+		<id column="readerId" jdbcType="INTEGER" property="readerId" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="sex" jdbcType="INTEGER" property="sex" />
+		<result column="barcode" jdbcType="VARCHAR" property="barcode" />
+		<result column="vocation" jdbcType="VARCHAR" property="vocation" />
+		<result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+		<result column="typeid" jdbcType="INTEGER" property="typeid" />
+		<result column="paperType" jdbcType="INTEGER" property="paperType" />
+		<result column="paperNO" jdbcType="VARCHAR" property="paperNO" />
+		<result column="tel" jdbcType="VARCHAR" property="tel" />
+		<result column="email" jdbcType="VARCHAR" property="email" />
+		<result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="operator" jdbcType="VARCHAR" property="operator" />
+		<association property="readerType" javaType="com.laji.domain.ReaderType">
+	    	<id column="readertypeId" property="readertypeId"/>
+	    	<result column="typename" property="typename"/>
+	    </association>
+	</resultMap>
+	<!-- <sql id="Base_Column_List">
+		readerId, name, sex, barcode, vocation, birthday, typeid, paperType, paperNO, tel, email, createtime, remark, operator
+	</sql> -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from reader
+		where readerId = #{readerId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insertSelective" parameterType="com.laji.domain.Reader">
+		insert into reader
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="readerId != null">
+				readerId,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="barcode != null">
+				barcode,
+			</if>
+			<if test="vocation != null">
+				vocation,
+			</if>
+			<if test="birthday != null">
+				birthday,
+			</if>
+			<if test="typeid != null">
+				typeid,
+			</if>
+			<if test="paperType != null">
+				paperType,
+			</if>
+			<if test="paperNO != null">
+				paperNO,
+			</if>
+			<if test="tel != null">
+				tel,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="operator != null">
+				operator,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="readerId != null">
+				#{readerId,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=INTEGER},
+			</if>
+			<if test="barcode != null">
+				#{barcode,jdbcType=VARCHAR},
+			</if>
+			<if test="vocation != null">
+				#{vocation,jdbcType=VARCHAR},
+			</if>
+			<if test="birthday != null">
+				#{birthday,jdbcType=TIMESTAMP},
+			</if>
+			<if test="typeid != null">
+				#{typeid,jdbcType=INTEGER},
+			</if>
+			<if test="paperType != null">
+				#{paperType,jdbcType=INTEGER},
+			</if>
+			<if test="paperNO != null">
+				#{paperNO,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				#{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=INTEGER},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="operator != null">
+				#{operator,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.laji.domain.Reader">
+		update reader
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=INTEGER},
+			</if>
+			<if test="barcode != null">
+				barcode = #{barcode,jdbcType=VARCHAR},
+			</if>
+			<if test="vocation != null">
+				vocation = #{vocation,jdbcType=VARCHAR},
+			</if>
+			<if test="birthday != null">
+				birthday = #{birthday,jdbcType=TIMESTAMP},
+			</if>
+			<if test="typeid != null">
+				typeid = #{typeid,jdbcType=INTEGER},
+			</if>
+			<if test="paperType != null">
+				paperType = #{paperType,jdbcType=INTEGER},
+			</if>
+			<if test="paperNO != null">
+				paperNO = #{paperNO,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				tel = #{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=INTEGER},
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="operator != null">
+				operator = #{operator,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where readerId = #{readerId,jdbcType=INTEGER}
+	</update>
+	<select id="queryAllReader" resultMap="BaseResultMap">
+		<!-- <include refid="Base_Column_List" /> -->
+		select r1.readerId readerId, r1.name name, r1.sex sex, r1.barcode barcode, r1.vocation vocation,
+		r1.birthday birthday, r1.paperType paperType, r1.paperNO paperNO, r1.tel tel, r1.email email, r1.createtime createtime,
+		r1.remark remark, r1.operator operator, r2.typename typename
+		from reader r1 left join readertype r2 on r1.typeid = r2.readertypeId
+		<where>
+			<if test="barcode!=null and barcode !=''">
+				and barcode = #{barcode}
+			</if>
+			<if test="name!=null and name !=''">
+				and name like concat("%",#{name},"%")
+			</if>
+			<if test="startTime!=null">
+	    		and createtime >=#{startTime}
+	    	</if>
+	    	<if test="endTime!=null">
+	    		and createtime <![CDATA[<=]]> #{endTime}
+	    	</if>
+		</where>
+		order by r1.readerId
+	</select>
+	<select id="findLastNumber" parameterType="String" resultType="String">
+		select barcode from reader where barcode like concat(#{barcode},"%") order by createtime desc limit 1;
+	</select>
+	<select id="queryNumberByBarcode" parameterType="String" resultType="java.lang.Integer">
+		select r2.number
+		from reader r1, readertype r2
+		where r1.typeid = r2.readertypeId and barcode = #{barcode,jdbcType=VARCHAR};
+	</select>
+</mapper>
